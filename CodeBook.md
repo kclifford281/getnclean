@@ -1,14 +1,14 @@
-##Introduction
+#Introduction
 
 This file describes the data, the variables, and the work that has been performed to clean up the data.
 
-##Data Set Description
+#Data Set Description
 
 The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data.
 
 The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain.
 
-##Process:
+#Process:
 
 For each record it is provided:
 
@@ -41,36 +41,36 @@ Finally a Fast Fourier Transform (FFT) was applied to some of these signals prod
 These signals were used to estimate variables of the feature vector for each pattern:
 '-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
 
-## Variables created in process
+# Variables created in process
 
-Read TEST Data
+##Read and setup TEST Data
 
 XtestData <- read.table("./UCI HAR Dataset/test/X_test.txt",header=FALSE)
 colnames(XtestData)<-features$V2
-#subset of columns with mean , std
+subset of columns with mean , std
 XtestData <- XtestData[,subset_cols]
 
-# 'test/y_test.txt': Test labels.
+test/y_test.txt: Test labels.
 YtestData <- read.table("./UCI HAR Dataset/test/y_test.txt",header=FALSE)
 
-Read TRAIN Data
+##Read and setup TRAIN Data
 
-# 'train/X_train.txt': Training set.
+train/X_train.txt: Training set.
 XtrainData <- read.table("./UCI HAR Dataset/train/X_train.txt",header=FALSE)
 colnames(XtrainData)<-features$V2
-#subset of columns with mean , std
+subset of columns with mean , std
 XtrainData <- XtrainData[,subset_cols]
 
-# 'train/y_train.txt': Training labels.
+train/y_train.txt: Training labels.
 YtrainData <- read.table("./UCI HAR Dataset/train/y_train.txt",header=FALSE)
 
-# 'activity_labels.txt': Links the class labels with their activity name.
+Process activity_labels.txt: Links the class labels with their activity name.
 activities <- read.table("./UCI HAR Dataset/activity_labels.txt",header=FALSE,colClasses="character")
-# Use the descriptive activity names in the test & train labels (Y datasets) data
+Use the descriptive activity names in the test & train labels (Y datasets) data
 YtestData$V1 <- factor(YtestData$V1,levels=activities$V1,labels=activities$V2)
 YtrainData$V1 <- factor(YtrainData$V1,levels=activities$V1,labels=activities$V2)
 
-##Work/Transformations
+#Work/Transformations
 
 Load test and training sets and the activities
 
