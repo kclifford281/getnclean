@@ -41,7 +41,36 @@ Finally a Fast Fourier Transform (FFT) was applied to some of these signals prod
 These signals were used to estimate variables of the feature vector for each pattern:
 '-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
 
-Work/Transformations
+## Variables created in process
+
+Read TEST Data
+
+XtestData <- read.table("./UCI HAR Dataset/test/X_test.txt",header=FALSE)
+colnames(XtestData)<-features$V2
+#subset of columns with mean , std
+XtestData <- XtestData[,subset_cols]
+
+# 'test/y_test.txt': Test labels.
+YtestData <- read.table("./UCI HAR Dataset/test/y_test.txt",header=FALSE)
+
+Read TRAIN Data
+
+# 'train/X_train.txt': Training set.
+XtrainData <- read.table("./UCI HAR Dataset/train/X_train.txt",header=FALSE)
+colnames(XtrainData)<-features$V2
+#subset of columns with mean , std
+XtrainData <- XtrainData[,subset_cols]
+
+# 'train/y_train.txt': Training labels.
+YtrainData <- read.table("./UCI HAR Dataset/train/y_train.txt",header=FALSE)
+
+# 'activity_labels.txt': Links the class labels with their activity name.
+activities <- read.table("./UCI HAR Dataset/activity_labels.txt",header=FALSE,colClasses="character")
+# Use the descriptive activity names in the test & train labels (Y datasets) data
+YtestData$V1 <- factor(YtestData$V1,levels=activities$V1,labels=activities$V2)
+YtrainData$V1 <- factor(YtrainData$V1,levels=activities$V1,labels=activities$V2)
+
+##Work/Transformations
 
 Load test and training sets and the activities
 
